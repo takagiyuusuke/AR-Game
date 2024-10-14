@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="animal_moose" size="100.000000 115.942032" />
+    <ImageTarget name="warabukiyane" size="100.000000 77.750000" />
+    <ImageTarget name="job_itamae_woman" size="100.000000 142.857147" />
+    <ImageTarget name="marker3" size="100.000000 100.529099" />
+    <ImageTarget name="marker2" size="100.000000 99.470901" />
+    <ImageTarget name="marker1" size="100.000000 99.468086" />
+    <ImageTarget name="marker4" size="100.000000 100.000000" />
+  </Tracking>
+</QCARConfig>
