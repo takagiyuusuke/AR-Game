@@ -1,2 +1,0 @@
-# AR-Game
-for Experiment
