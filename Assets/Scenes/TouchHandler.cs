@@ -35,7 +35,7 @@ public class Tourch : MonoBehaviour
                             // 現在のマテリアルの色を取得
                             Color objectColor = objectRenderer.material.color;
 
-                            // アルファ値を0.5に設定して透明度を変更
+                            // アルファ値を0<->1で切り替える
                             if (objectColor. a == 0.0f)
                             objectColor.a = 1.0f;
                             else

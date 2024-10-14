@@ -22,7 +22,7 @@ public class TargetEventHandler : MonoBehaviour
             assignedObject.SetActive(false); // 初期状態で非表示にしておく
         }
     }
-    
+
         void Update()
     {
         // if (!mObserverBehaviour)
@@ -54,13 +54,14 @@ public class TargetEventHandler : MonoBehaviour
         if (assignedObject == null) return;
 
         if (
+            targetStatus.Status == Status.NO_POSE ||
             targetStatus.Status == Status.TRACKED ||
             targetStatus.Status == Status.EXTENDED_TRACKED)
         {
             // ターゲットが認識されたときにオブジェクトの位置をマーカーの位置に設定し、表示する
             // assignedObject.transform.position = mObserverBehaviour.transform.position; // マーカーの位置にオブジェクトを配置
             // assignedObject.transform.rotation = mObserverBehaviour.transform.rotation; // マーカーの回転をオブジェクトに適用（オプション）
-            // assignedObject.SetActive(true);
+            assignedObject.SetActive(true);
         }
         else
         {
