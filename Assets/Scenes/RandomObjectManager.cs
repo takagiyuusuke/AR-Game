@@ -13,6 +13,7 @@ public class RandomObjectManager : MonoBehaviour
         foreach (string targetName in targetNames)
         {
             GameObject randomObject = availableObjects[Random.Range(0, availableObjects.Count)];
+            // GameObject randomObject = availableObjects[1];
             targetObjectMap[targetName] = randomObject;
         }
     }
