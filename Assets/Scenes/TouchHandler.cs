@@ -23,45 +23,42 @@ public class Tourch : MonoBehaviour
 
                 // レイキャストでオブジェクトにヒットしたか確認
                 if (Physics.Raycast(ray, out hit))
+                {
+                    GameObject touchedObject = hit.collider.gameObject;
+                    Debug.Log("Touched object: " + touchedObject.name);
+
+                    // オブジェクトのRendererを取得
+                    Renderer objectRenderer = touchedObject.GetComponent<Renderer>();
+
+                    if (objectRenderer != null)
                     {
-                        GameObject touchedObject = hit.collider.gameObject;
-                        Debug.Log("Touched object: " + touchedObject.name);
+                        // マテリアルのレンダリングモードをTransparentに変更
+                        objectRenderer.material.SetOverrideTag("RenderType", "Transparent");
+                        objectRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                        objectRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                        objectRenderer.material.SetInt("_ZWrite", 0);
+                        objectRenderer.material.DisableKeyword("_ALPHATEST_ON");
+                        objectRenderer.material.EnableKeyword("_ALPHABLEND_ON");
+                        objectRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                        objectRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
 
-                        // オブジェクトのRendererを取得
-                        Renderer objectRenderer = touchedObject.GetComponent<Renderer>();
+                        // 現在のマテリアルの色を取得
+                        Color objectColor = objectRenderer.material.color;
 
-                        if (objectRenderer != null)
-                        {
-                            // 現在のマテリアルの色を取得
-                            Color objectColor = objectRenderer.material.color;
-
-                            // アルファ値を0<->1で切り替える
-                            if (objectColor. a == 0.0f)
-                            objectColor.a = 1.0f;
-                            else
-                            objectColor.a = 0.0f;
-
-
-                            // 変更した色をマテリアルに適用
-                            objectRenderer.material.color = objectColor;
-
-                            // マテリアルが透明をサポートする設定を行う
-                            // Standard Shaderを使っている前提
-                            objectRenderer.material.SetOverrideTag("RenderType", "Transparent");
-                            objectRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                            objectRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                            objectRenderer.material.SetInt("_ZWrite", 0);
-                            objectRenderer.material.DisableKeyword("_ALPHATEST_ON");
-                            objectRenderer.material.EnableKeyword("_ALPHABLEND_ON");
-                            objectRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                            objectRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-                        }
+                        // アルファ値を0<->1で切り替える
+                        if (objectColor. a == 0.0f)
+                        objectColor.a = 1.0f;
                         else
-                        {
-                            Debug.LogWarning("Rendererが見つかりません！");
-                        }
-                    }
+                        objectColor.a = 0.0f;
 
+                        // 変更した色をマテリアルに適用
+                        objectRenderer.material.color = objectColor;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Rendererが見つかりません！");
+                    }
+                }
             }
         // }   
     }
