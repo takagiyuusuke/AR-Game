@@ -8,15 +8,18 @@ public class RandomObjectManager : MonoBehaviour
     private Dictionary<string, GameObject> targetObjectMap = new Dictionary<string, GameObject>();
 
     // 各ターゲットにオブジェクトをランダムに割り当てる
+    int randomNumber = 0;
     public void AssignRandomObjectsToTargets(List<string> targetNames)
     {
         foreach (string targetName in targetNames)
         {
-            int randomNumber = Random.Range(0, availableObjects.Count);
+            // int randomNumber = Random.Range(0, availableObjects.Count);
             GameObject randomObject = availableObjects[randomNumber];
             Debug.Log("らんだむなんばー" + randomNumber.ToString());
             // GameObject randomObject = availableObjects[1];
             targetObjectMap[targetName] = randomObject;
+            
+            randomNumber ++;
         }
     }
 

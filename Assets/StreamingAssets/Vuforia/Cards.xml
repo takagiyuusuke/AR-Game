@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig>
   <Tracking>
+    <ImageTarget name="house2" size="100.000000 100.000000" />
+    <ImageTarget name="houses" size="100.000000 100.000000" />
+    <ImageTarget name="meijin" size="100.000000 180.722885" />
+    <ImageTarget name="trophy" size="100.000000 68.250000" />
+    <ImageTarget name="walk_girl_run" size="100.000000 152.173920" />
+    <ImageTarget name="mental_health_woman" size="100.000000 156.794418" />
+    <ImageTarget name="baby_pet_dog" size="100.000000 90.500000" />
+    <ImageTarget name="souji_ike_hoshi" size="100.000000 94.000000" />
     <ImageTarget name="animal_moose" size="100.000000 115.942032" />
     <ImageTarget name="warabukiyane" size="100.000000 77.750000" />
     <ImageTarget name="job_itamae_woman" size="100.000000 142.857147" />
-    <ImageTarget name="marker3" size="100.000000 100.529099" />
-    <ImageTarget name="marker2" size="100.000000 99.470901" />
-    <ImageTarget name="marker1" size="100.000000 99.468086" />
-    <ImageTarget name="marker4" size="100.000000 100.000000" />
   </Tracking>
 </QCARConfig>
