@@ -19,7 +19,7 @@ public class RandomObjectManager : MonoBehaviour
             // GameObject randomObject = availableObjects[1];
             targetObjectMap[targetName] = randomObject;
             
-            randomNumber ++;
+            // randomNumber ++;
         }
     }
 
