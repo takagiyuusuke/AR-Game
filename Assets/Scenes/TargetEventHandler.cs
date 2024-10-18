@@ -6,7 +6,7 @@ public class TargetEventHandler : MonoBehaviour
     private ObserverBehaviour mObserverBehaviour;
     public RandomObjectManager randomObjectManager;
 
-    public GameObject cardBack;
+    // public GameObject cardBack;
 
     void Start()
     {
@@ -18,12 +18,14 @@ public class TargetEventHandler : MonoBehaviour
 
         // ゲーム開始時にオブジェクトを非表示にしておく
         GameObject assignedObject = randomObjectManager.GetObjectForTarget(mObserverBehaviour.TargetName);
+        GameObject cardBack = randomObjectManager.GetBackForTarget(mObserverBehaviour.TargetName);
         Instantiate(assignedObject, Vector3.zero, Quaternion.identity);
         Instantiate(cardBack, new Vector3(0, 0.01f, 0), Quaternion.identity);
         
         if (assignedObject != null)
         {
             assignedObject.SetActive(false); // 初期状態で非表示にしておく
+            cardBack.SetActive(false);
         }
     }
 
@@ -42,6 +44,8 @@ public class TargetEventHandler : MonoBehaviour
         //     assignedObject.SetActive(false); // 初期状態で非表示にしておく
         // }
         GameObject assignedObject = randomObjectManager.GetObjectForTarget(mObserverBehaviour.TargetName);
+        GameObject cardBack = randomObjectManager.GetBackForTarget(mObserverBehaviour.TargetName);
+
          if (assignedObject != null && mObserverBehaviour != null)
         {
             assignedObject.transform.SetPositionAndRotation(
@@ -61,10 +65,12 @@ public class TargetEventHandler : MonoBehaviour
     private void OnTargetStatusChanged(ObserverBehaviour behaviour, TargetStatus targetStatus)
     {
         GameObject assignedObject = randomObjectManager.GetObjectForTarget(mObserverBehaviour.TargetName);
+        GameObject cardBack = randomObjectManager.GetBackForTarget(mObserverBehaviour.TargetName);
+
         if (assignedObject == null) return;
 
         if (
-            targetStatus.Status == Status.NO_POSE ||
+            // targetStatus.Status == Status.NO_POSE ||
             targetStatus.Status == Status.TRACKED ||
             targetStatus.Status == Status.EXTENDED_TRACKED)
         {
@@ -78,6 +84,7 @@ public class TargetEventHandler : MonoBehaviour
         {
             // ターゲットを見失ったときにオブジェクトを非表示
             assignedObject.SetActive(false);
+            cardBack.SetActive(false);
         }
     }
 
