@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
+using System.Security.Cryptography;
+
 
 public class RandomObjectManager : MonoBehaviour
 {
@@ -7,19 +11,30 @@ public class RandomObjectManager : MonoBehaviour
     public List<GameObject> availableObjects;  // 出現する可能性のあるオブジェクトのリスト
     private Dictionary<string, GameObject> targetObjectMap = new Dictionary<string, GameObject>();
 
-    // 各ターゲットにオブジェクトをランダムに割り当てる
-    int randomNumber = 0;
+    void ShuffleArray(int[] array)
+    {
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            int temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+    }
+    
     public void AssignRandomObjectsToTargets(List<string> targetNames)
     {
         foreach (string targetName in targetNames)
         {
-            // int randomNumber = Random.Range(0, availableObjects.Count);
-            GameObject randomObject = availableObjects[randomNumber];
-            Debug.Log("らんだむなんばー" + randomNumber.ToString());
+            int[] arr = {0, 1, 2, 3, 4, 5}; // 3組のペア
+            ShuffleArray(arr); // 配列をシャッフル
+            int indexOfArray = 0;
+            GameObject randomObject = availableObjects[arr[indexOfArray]];
+            Debug.Log("らんだむなんばー" + indexOfArray.ToString());
             // GameObject randomObject = availableObjects[1];
             targetObjectMap[targetName] = randomObject;
             
-            // randomNumber ++;
+            indexOfArray ++;
         }
     }
 
