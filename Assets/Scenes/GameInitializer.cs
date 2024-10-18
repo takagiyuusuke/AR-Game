@@ -64,12 +64,14 @@ public class GameInitializer : MonoBehaviour
 
                     // 現在のマテリアルの色を取得
                     Color objectColor = objectRenderer.material.color;
+                    
 
+                    float hidden_alpha = 0.3f;
                     // アルファ値を0<->1で切り替える
-                    if (objectColor. a == 0.0f)
+                    if (objectColor. a == hidden_alpha)
                     objectColor.a = 1.0f;
                     else
-                    objectColor.a = 0.0f;
+                    objectColor.a = hidden_alpha;
 
                     // 変更した色をマテリアルに適用
                     objectRenderer.material.color = objectColor;

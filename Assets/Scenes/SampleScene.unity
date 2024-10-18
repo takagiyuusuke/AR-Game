@@ -485,13 +485,13 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: walk_girl_run
+  mTrackableName: houses
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Cards.xml
-  mAspectRatio: 1.5217392
+  mAspectRatio: 1
   mImageTargetType: 0
   mWidth: 100
-  mHeight: 152.17392
+  mHeight: 100
   mRuntimeTexture: {fileID: 0}
   mMotionHint: 1
   mTrackingOptimization: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mObserverBehaviour: {fileID: 180598774}
   mHiddenRoot: {fileID: 0}
-  mTargetName: walk_girl_run
+  mTargetName: houses
   mDatasetName: Vuforia/Cards.xml
   mCastedBehaviour: {fileID: 180598774}
   mMeshFilter: {fileID: 0}
@@ -948,11 +948,11 @@ MonoBehaviour:
   randomObjectManager: {fileID: 1834664505}
   targetNames:
   - animal_moose
-  - warabukiyane
+  - trophy
   - job_itamae_woman
   - mental_health_woman
+  - house2
   - houses
-  - walk_girl_run
   turnText: {fileID: 962095426}
 --- !u!4 &692475285
 Transform:
