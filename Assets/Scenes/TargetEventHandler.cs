@@ -6,6 +6,8 @@ public class TargetEventHandler : MonoBehaviour
     private ObserverBehaviour mObserverBehaviour;
     public RandomObjectManager randomObjectManager;
 
+    public GameObject cardBack;
+
     void Start()
     {
         mObserverBehaviour = GetComponent<ObserverBehaviour>();
@@ -17,6 +19,8 @@ public class TargetEventHandler : MonoBehaviour
         // ゲーム開始時にオブジェクトを非表示にしておく
         GameObject assignedObject = randomObjectManager.GetObjectForTarget(mObserverBehaviour.TargetName);
         Instantiate(assignedObject, Vector3.zero, Quaternion.identity);
+        Instantiate(cardBack, new Vector3(0, 0.01f, 0), Quaternion.identity);
+        
         if (assignedObject != null)
         {
             assignedObject.SetActive(false); // 初期状態で非表示にしておく
@@ -44,6 +48,12 @@ public class TargetEventHandler : MonoBehaviour
                 mObserverBehaviour.transform.position,
                 mObserverBehaviour.transform.rotation
             );
+            // Debug.Log(assignedObject.name);
+            if (cardBack != null)
+            cardBack.transform.SetPositionAndRotation(
+                mObserverBehaviour.transform.position + (new Vector3(0, 0.01f, 0)),
+                mObserverBehaviour.transform.rotation
+            );
         }
     }
 
@@ -62,6 +72,7 @@ public class TargetEventHandler : MonoBehaviour
             // assignedObject.transform.position = mObserverBehaviour.transform.position; // マーカーの位置にオブジェクトを配置
             // assignedObject.transform.rotation = mObserverBehaviour.transform.rotation; // マーカーの回転をオブジェクトに適用（オプション）
             assignedObject.SetActive(true);
+            cardBack.SetActive(true);
         }
         else
         {

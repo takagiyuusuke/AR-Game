@@ -24,13 +24,13 @@ public class RandomObjectManager : MonoBehaviour
     
     public void AssignRandomObjectsToTargets(List<string> targetNames)
     {
+        int[] arr = {0, 1, 2, 3, 4, 5}; // 3組のペア
+        ShuffleArray(arr); // 配列をシャッフル
+        int indexOfArray = 0;
         foreach (string targetName in targetNames)
         {
-            int[] arr = {0, 1, 2, 3, 4, 5}; // 3組のペア
-            ShuffleArray(arr); // 配列をシャッフル
-            int indexOfArray = 0;
             GameObject randomObject = availableObjects[arr[indexOfArray]];
-            Debug.Log("らんだむなんばー" + indexOfArray.ToString());
+            Debug.Log("らんだむなんばー" + arr[indexOfArray].ToString());
             // GameObject randomObject = availableObjects[1];
             targetObjectMap[targetName] = randomObject;
             
