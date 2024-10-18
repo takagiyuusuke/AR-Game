@@ -201,13 +201,13 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: warabukiyane
+  mTrackableName: animal_moose
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Cards.xml
-  mAspectRatio: 0.7775
+  mAspectRatio: 1.1594204
   mImageTargetType: 0
-  mWidth: 100
-  mHeight: 77.75
+  mWidth: 99.99999
+  mHeight: 115.94203
   mRuntimeTexture: {fileID: 0}
   mMotionHint: 1
   mTrackingOptimization: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mObserverBehaviour: {fileID: 22660263}
   mHiddenRoot: {fileID: 0}
-  mTargetName: warabukiyane
+  mTargetName: animal_moose
   mDatasetName: Vuforia/Cards.xml
   mCastedBehaviour: {fileID: 22660263}
   mMeshFilter: {fileID: 0}
@@ -485,13 +485,13 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: animal_moose
+  mTrackableName: walk_girl_run
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Cards.xml
-  mAspectRatio: 1.1594204
+  mAspectRatio: 1.5217392
   mImageTargetType: 0
-  mWidth: 99.99999
-  mHeight: 115.94203
+  mWidth: 100
+  mHeight: 152.17392
   mRuntimeTexture: {fileID: 0}
   mMotionHint: 1
   mTrackingOptimization: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mObserverBehaviour: {fileID: 180598774}
   mHiddenRoot: {fileID: 0}
-  mTargetName: animal_moose
+  mTargetName: walk_girl_run
   mDatasetName: Vuforia/Cards.xml
   mCastedBehaviour: {fileID: 180598774}
   mMeshFilter: {fileID: 0}
@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 411783637}
   - component: {fileID: 411783636}
   - component: {fileID: 411783635}
-  - component: {fileID: 411783634}
+  - component: {fileID: 411783639}
   m_Layer: 0
   m_Name: ImageTarget6
   m_TagString: Untagged
@@ -720,25 +720,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &411783634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411783633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 411783637}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: walk_girl_run
-  mDatasetName: Vuforia/Cards.xml
-  mCastedBehaviour: {fileID: 411783637}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &411783635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,18 +792,18 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: walk_girl_run
+  mTrackableName: house2
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Cards.xml
-  mAspectRatio: 1.5217392
+  mAspectRatio: 1
   mImageTargetType: 0
   mWidth: 100
-  mHeight: 152.17392
+  mHeight: 100
   mRuntimeTexture: {fileID: 0}
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 411783634}
+  mPreview: {fileID: 411783639}
 --- !u!4 &411783638
 Transform:
   m_ObjectHideFlags: 0
@@ -838,6 +819,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &411783639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411783633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 411783637}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: house2
+  mDatasetName: Vuforia/Cards.xml
+  mCastedBehaviour: {fileID: 411783637}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1001 &594968135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1075,7 +1075,7 @@ GameObject:
   - component: {fileID: 730439209}
   - component: {fileID: 730439208}
   - component: {fileID: 730439207}
-  - component: {fileID: 730439206}
+  - component: {fileID: 730439211}
   m_Layer: 0
   m_Name: ImageTarget5
   m_TagString: Untagged
@@ -1083,25 +1083,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &730439206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730439205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 730439209}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: houses
-  mDatasetName: Vuforia/Cards.xml
-  mCastedBehaviour: {fileID: 730439209}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &730439207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,18 +1155,18 @@ MonoBehaviour:
   PreviewVisible: 1
   RuntimeOcclusion: 0
   RuntimeCollider: 0
-  mTrackableName: houses
+  mTrackableName: trophy
   mInitializedInEditor: 1
   mDataSetPath: Vuforia/Cards.xml
-  mAspectRatio: 1
+  mAspectRatio: 0.6825
   mImageTargetType: 0
   mWidth: 100
-  mHeight: 100
+  mHeight: 68.25
   mRuntimeTexture: {fileID: 0}
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 730439206}
+  mPreview: {fileID: 730439211}
 --- !u!4 &730439210
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,6 +1182,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &730439211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730439205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 730439209}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: trophy
+  mDatasetName: Vuforia/Cards.xml
+  mCastedBehaviour: {fileID: 730439209}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1001 &818295829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1872,7 +1872,7 @@ PrefabInstance:
     - target: {fileID: 1499710981529138703, guid: 338e371ddb25e0c4e9b180c897df1215,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3596270310436035386, guid: 338e371ddb25e0c4e9b180c897df1215,
         type: 3}
@@ -2261,7 +2261,7 @@ GameObject:
   - component: {fileID: 2075788295}
   - component: {fileID: 2075788294}
   - component: {fileID: 2075788293}
-  - component: {fileID: 2075788292}
+  - component: {fileID: 2075788297}
   m_Layer: 0
   m_Name: ImageTarget4
   m_TagString: Untagged
@@ -2269,25 +2269,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2075788292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075788291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mObserverBehaviour: {fileID: 2075788295}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: mental_health_woman
-  mDatasetName: Vuforia/Cards.xml
-  mCastedBehaviour: {fileID: 2075788295}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!114 &2075788293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2371,7 +2352,7 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 2075788292}
+  mPreview: {fileID: 2075788297}
 --- !u!4 &2075788296
 Transform:
   m_ObjectHideFlags: 0
@@ -2387,6 +2368,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075788297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075788291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mObserverBehaviour: {fileID: 2075788295}
+  mHiddenRoot: {fileID: 0}
+  mTargetName: mental_health_woman
+  mDatasetName: Vuforia/Cards.xml
+  mCastedBehaviour: {fileID: 2075788295}
+  mMeshFilter: {fileID: 0}
+  mMeshRenderer: {fileID: 0}
 --- !u!1001 &2112088812
 PrefabInstance:
   m_ObjectHideFlags: 0
