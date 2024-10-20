@@ -1255,7 +1255,8 @@ MonoBehaviour:
   scoreText1: {fileID: 1561513599}
   scoreText2: {fileID: 1164977953}
   resultText: {fileID: 209953699}
-  maxPair: 3
+  _HitParticle: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
+    type: 3}
 --- !u!4 &692475285
 Transform:
   m_ObjectHideFlags: 0

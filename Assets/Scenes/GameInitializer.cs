@@ -18,6 +18,7 @@ public class GameInitializer : MonoBehaviour
     public TextMeshProUGUI scoreText2; //プレイヤー２のスコア表示
     public TextMeshProUGUI resultText; //結果の表示
     
+    public GameObject _HitParticle; //パーティクルエフェクト
 
     private GameObject[] selected = new GameObject[2];
     private int score1 = 0;
@@ -104,6 +105,12 @@ public class GameInitializer : MonoBehaviour
                         if (touchedObject.name[5] == selected[0].name[5]){
                             description.text = "Correct!!";
                             description.color = Color.green;
+                            GameObject selectedBefore = selected[0];
+                            GameObject particle = Instantiate(_HitParticle, selectedBefore.transform.position, Quaternion.identity);
+                            GameObject particle2 = Instantiate(_HitParticle, touchedObject.transform.position, Quaternion.identity);
+                            Destroy(particle, 1.0f);
+                            Destroy(particle2, 1.0f);
+                            
                             if (turnText.text == "turn: Player 1") {
                                 score1 ++;
                                 scoreText1.text = "Player1: " + score1.ToString() + "pair";
