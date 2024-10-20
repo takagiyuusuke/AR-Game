@@ -16,6 +16,7 @@ public class GameInitializer : MonoBehaviour
     public GameObject button; //次のターンにするボタン
     public TextMeshProUGUI scoreText1; //プレイヤー１のスコア表示
     public TextMeshProUGUI scoreText2; //プレイヤー２のスコア表示
+    public TextMeshProUGUI resultText; //結果の表示
     
 
     private GameObject[] selected = new GameObject[2];
@@ -32,6 +33,13 @@ public class GameInitializer : MonoBehaviour
         button.SetActive(false);
         scoreText1.color = Color.blue;
         scoreText2.color = Color.red;
+        resultText.text = "";
+        DisappearCard("Trump1-1");
+        DisappearCard("Trump2-1");
+        DisappearCard("Trump3-1");
+        DisappearCard("Trump1-2");
+        DisappearCard("Trump2-2");
+        DisappearCard("Trump3-2");
     }
 
     void Update()
@@ -52,6 +60,8 @@ public class GameInitializer : MonoBehaviour
                 if (description.text == "Wrong!!") {
                     SetTransparency(selected[0], 1);
                     SetTransparency(selected[1], 1);
+                    // DisappearCard(selected[0].name[..8]);
+                    // DisappearCard(selected[1].name[..8]);
                     if (turnText.text == "turn: Player 1")  {
                         turnText.text = "turn: Player 2";
                         turnText.color = Color.red;
@@ -61,6 +71,7 @@ public class GameInitializer : MonoBehaviour
                     }
                 }
                 description.text = "Please click card! (2 cards left)";
+                description.color = Color.white;
                 Array.Clear(selected, 0, selected.Length);
                 button.SetActive(false);
                 return; // UIが押された場合はここで処理を終了
@@ -83,14 +94,16 @@ public class GameInitializer : MonoBehaviour
                 if (objectRenderer != null)
                 {   
                     SetTransparency(touchedObject, 0.0f);
+                    // AppearCard(touchedObject.name[..8]);
                     if (selected[0] == null) {
                         selected[0] = touchedObject;
                         description.text = "Please click card! (1 cards left)";
+                        description.color = Color.gray;
                     } else {
                         selected[1] = touchedObject;
-                        button.SetActive(true);
                         if (touchedObject.name[5] == selected[0].name[5]){
                             description.text = "Correct!!";
+                            description.color = Color.green;
                             if (turnText.text == "turn: Player 1") {
                                 score1 ++;
                                 scoreText1.text = "Player1: " + score1.ToString() + "pair";
@@ -98,8 +111,21 @@ public class GameInitializer : MonoBehaviour
                                 score2 ++;
                                 scoreText2.text = "Player2: " + score2.ToString() + "pair";
                             }
+                            if (score1 + score2 == 3){
+                                if (score1 > score2) {
+                                    resultText.text = "Winner: Player 1";
+                                    resultText.color = Color.blue;
+                                } else {
+                                    resultText.text = "Winner: Player 2";
+                                    resultText.color = Color.red;
+                                }
+                                turnText.text = "Congraturation!!";
+                            } else button.SetActive(true);
+
                         } else {
                             description.text = "Wrong!!";
+                            description.color = Color.red;
+                            button.SetActive(true);
                         }
                     }
                 }
@@ -109,6 +135,20 @@ public class GameInitializer : MonoBehaviour
                 }
             }
         }  
+    }
+
+    void AppearCard(string objectName){
+        GameObject card = GameObject.Find("objectName");
+        GameObject back = GameObject.Find("objectName" + "-Back");
+        SetTransparency(card, 1.0f);
+        SetTransparency(back, 0.0f);
+    }
+
+    void DisappearCard(string objectName){
+        GameObject card = GameObject.Find("objectName");
+        GameObject back = GameObject.Find("objectName" + "-Back");
+        SetTransparency(card, 0.0f);
+        SetTransparency(back, 1.0f);
     }
 
     void SetTransparency(GameObject obj, float newOpacity){

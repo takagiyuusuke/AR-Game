@@ -16,11 +16,10 @@ public class TargetEventHandler : MonoBehaviour
             mObserverBehaviour.OnTargetStatusChanged += OnTargetStatusChanged;
         }
 
-        // ゲーム開始時にオブジェクトを非表示にしておく
         GameObject assignedObject = randomObjectManager.GetObjectForTarget(mObserverBehaviour.TargetName);
         GameObject cardBack = randomObjectManager.GetBackForTarget(mObserverBehaviour.TargetName);
         Instantiate(assignedObject, Vector3.zero, Quaternion.identity);
-        Instantiate(cardBack, new Vector3(0, 0.01f, 0), Quaternion.identity);
+        Instantiate(cardBack, (mObserverBehaviour.transform.position - Camera.main.transform.position) * 0.01f, Quaternion.identity);
         
         if (assignedObject != null)
         {
@@ -53,11 +52,13 @@ public class TargetEventHandler : MonoBehaviour
                 mObserverBehaviour.transform.rotation
             );
             // Debug.Log(assignedObject.name);
-            if (cardBack != null)
-            cardBack.transform.SetPositionAndRotation(
-                mObserverBehaviour.transform.position + (new Vector3(0, 0.01f, 0)),
-                mObserverBehaviour.transform.rotation
-            );
+            if (cardBack != null) {
+                Vector3 offset = (mObserverBehaviour.transform.position - Camera.main.transform.position) * 0.01f;
+                cardBack.transform.SetPositionAndRotation(
+                    mObserverBehaviour.transform.position - offset,
+                    mObserverBehaviour.transform.rotation
+                );
+            }
         }
     }
 
