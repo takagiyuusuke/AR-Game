@@ -97,7 +97,7 @@ public class GameInitializer : MonoBehaviour
                     // AppearCard(touchedObject.name[..8]);
                     if (selected[0] == null) {
                         selected[0] = touchedObject;
-                        description.text = "Please click card! (1 cards left)";
+                        description.text = "Please click card! (1 card left)";
                         description.color = Color.gray;
                     } else {
                         selected[1] = touchedObject;
