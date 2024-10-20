@@ -12,43 +12,26 @@ public class GameInitializer : MonoBehaviour
     public List<string> targetNames; // Vuforiaのターゲット名のリスト
 
     public TextMeshProUGUI turnText; // プレイヤーのターンを表示するテキスト
-    public TextMeshProUGUI description;
+    public TextMeshProUGUI description; //操作を指示するテキスト
+    public GameObject button; //次のターンにするボタン
+    public TextMeshProUGUI scoreText1; //プレイヤー１のスコア表示
+    public TextMeshProUGUI scoreText2; //プレイヤー２のスコア表示
+    
 
     private GameObject[] selected = new GameObject[2];
+    private int score1 = 0;
+    private int score2 = 0;
 
-    void SetTransparency(GameObject obj, float newOpacity){
-        Renderer objectRenderer = obj.GetComponent<Renderer>();
-        // マテリアルのレンダリングモードをTransparentに変更
-        objectRenderer.material.SetOverrideTag("RenderType", "Transparent");
-        objectRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        objectRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        objectRenderer.material.SetInt("_ZWrite", 0);
-        objectRenderer.material.DisableKeyword("_ALPHATEST_ON");
-        objectRenderer.material.EnableKeyword("_ALPHABLEND_ON");
-        objectRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        objectRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
 
-        // 現在のマテリアルの色を取得
-        Color objectColor = objectRenderer.material.color;
-        
-
-        // float hidden_alpha = 0.3f;
-        // // アルファ値を0<->1で切り替える
-        // if (objectColor. a == hidden_alpha)
-        // objectColor.a = 1.0f;
-        // else
-        // objectColor.a = hidden_alpha;
-        objectColor.a = newOpacity;
-
-        // 変更した色をマテリアルに適用
-        objectRenderer.material.color = objectColor;
-    }
     void Start()
     {
         // ゲーム開始時にオブジェクトを割り当てる
         randomObjectManager.AssignRandomObjectsToTargets(targetNames);
         turnText.text = "turn: Player 1";
         turnText.color = Color.blue;
+        button.SetActive(false);
+        scoreText1.color = Color.blue;
+        scoreText2.color = Color.red;
     }
 
     void Update()
@@ -79,6 +62,7 @@ public class GameInitializer : MonoBehaviour
                 }
                 description.text = "Please click card! (2 cards left)";
                 Array.Clear(selected, 0, selected.Length);
+                button.SetActive(false);
                 return; // UIが押された場合はここで処理を終了
             }
             
@@ -104,8 +88,16 @@ public class GameInitializer : MonoBehaviour
                         description.text = "Please click card! (1 cards left)";
                     } else {
                         selected[1] = touchedObject;
+                        button.SetActive(true);
                         if (touchedObject.name[5] == selected[0].name[5]){
                             description.text = "Correct!!";
+                            if (turnText.text == "turn: Player 1") {
+                                score1 ++;
+                                scoreText1.text = "Player1: " + score1.ToString() + "pair";
+                            } else {
+                                score2 ++;
+                                scoreText2.text = "Player2: " + score2.ToString() + "pair";
+                            }
                         } else {
                             description.text = "Wrong!!";
                         }
@@ -117,5 +109,33 @@ public class GameInitializer : MonoBehaviour
                 }
             }
         }  
+    }
+
+    void SetTransparency(GameObject obj, float newOpacity){
+        Renderer objectRenderer = obj.GetComponent<Renderer>();
+        // マテリアルのレンダリングモードをTransparentに変更
+        objectRenderer.material.SetOverrideTag("RenderType", "Transparent");
+        objectRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        objectRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        objectRenderer.material.SetInt("_ZWrite", 0);
+        objectRenderer.material.DisableKeyword("_ALPHATEST_ON");
+        objectRenderer.material.EnableKeyword("_ALPHABLEND_ON");
+        objectRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        objectRenderer.material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+
+        // 現在のマテリアルの色を取得
+        Color objectColor = objectRenderer.material.color;
+        
+
+        // float hidden_alpha = 0.3f;
+        // // アルファ値を0<->1で切り替える
+        // if (objectColor. a == hidden_alpha)
+        // objectColor.a = 1.0f;
+        // else
+        // objectColor.a = hidden_alpha;
+        objectColor.a = newOpacity;
+
+        // 変更した色をマテリアルに適用
+        objectRenderer.material.color = objectColor;
     }
 }
