@@ -17,132 +17,219 @@ public class GameInitializer : MonoBehaviour
     public TextMeshProUGUI scoreText1; //プレイヤー１のスコア表示
     public TextMeshProUGUI scoreText2; //プレイヤー２のスコア表示
     public TextMeshProUGUI resultText; //結果の表示
+    public GameObject memoryGameButton;
+    public GameObject blackJackButton;
+
     
     public GameObject _HitParticle; //パーティクルエフェクト
 
     private GameObject[] selected = new GameObject[2];
     private int score1 = 0;
     private int score2 = 0;
+    private int gameMode = 0;
 
 
     void Start()
     {
-        // ゲーム開始時にオブジェクトを割り当てる
-        randomObjectManager.AssignRandomObjectsToTargets(targetNames);
-        turnText.text = "turn: Player 1";
-        turnText.color = Color.blue;
+        turnText.text = "Select Game";
+        description.text = "";
+        scoreText1.text = "";
+        scoreText2.text = "";
         button.SetActive(false);
-        scoreText1.color = Color.blue;
-        scoreText2.color = Color.red;
         resultText.text = "";
-        DisappearCard("Trump1-1");
-        DisappearCard("Trump2-1");
-        DisappearCard("Trump3-1");
-        DisappearCard("Trump1-2");
-        DisappearCard("Trump2-2");
-        DisappearCard("Trump3-2");
     }
 
     void Update()
-    {
-        OnClick();
-    }
-
-    void OnClick()
-    {
-        // タッチまたはマウスクリックの判定
+    {   
         if (Input.GetMouseButtonDown(0) )
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                Debug.Log("UIボタンが押されました");
-                //画面のターンを変更
-                
-                if (description.text == "Wrong!!") {
-                    SetTransparency(selected[0], 1);
-                    SetTransparency(selected[1], 1);
-                    // DisappearCard(selected[0].name[..8]);
-                    // DisappearCard(selected[1].name[..8]);
-                    if (turnText.text == "turn: Player 1")  {
-                        turnText.text = "turn: Player 2";
-                        turnText.color = Color.red;
-                    } else {
-                        turnText.text = "turn: Player 1";
-                        turnText.color = Color.blue;
-                    }
-                }
+        if (gameMode == 0){
+            GameObject selectedUI = EventSystem.current.currentSelectedGameObject;
+            // Debug.Log("UIボタンが押されました" + selectedUI.name);
+            if (selectedUI.name[0] == 'L'){
+                randomObjectManager.AssignRandomObjectsToTargets(targetNames);
+                turnText.text = "turn: Player 1";
+                turnText.color = Color.blue;
+                scoreText1.color = Color.blue;
+                scoreText2.color = Color.red;
                 description.text = "Please click card! (2 cards left)";
-                description.color = Color.white;
-                Array.Clear(selected, 0, selected.Length);
-                button.SetActive(false);
-                return; // UIが押された場合はここで処理を終了
+                scoreText1.text = "Player1: 0pair";
+                scoreText2.text = "Player2: 0pair";
+                memoryGameButton.SetActive(false);
+                blackJackButton.SetActive(false);
+                gameMode = 1;
+            } else if (selectedUI.name[0] == 'R') {
+                randomObjectManager.AssignRandomObjectsToTargets_BJ(targetNames);
+                turnText.text = "turn: Player 1";
+                turnText.color = Color.blue;
+                scoreText1.color = Color.blue;
+                scoreText2.color = Color.red;
+                description.text = "Please click card!";
+                scoreText1.text = "Player1: 0pt";
+                scoreText2.text = "Player2: 0pt";
+                memoryGameButton.SetActive(false);
+                blackJackButton.SetActive(false);
+                gameMode = 2;
+                button.SetActive(true);
             }
-            
-            // タッチ位置からレイを生成
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        } else if (gameMode == 1) MemoryGame();
+        else if (gameMode == 2) BlackJack();
+        }
+    }
 
-            // レイキャストでオブジェクトにヒットしたか確認
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject touchedObject = hit.collider.gameObject;
-                // string card = touchedObject.name[5..8];
-                Debug.Log("Touched object: " + touchedObject.name[5..8]);
-
-                // オブジェクトのRendererを取得
-                Renderer objectRenderer = touchedObject.GetComponent<Renderer>();
-
-                if (objectRenderer != null)
-                {   
-                    SetTransparency(touchedObject, 0.0f);
-                    // AppearCard(touchedObject.name[..8]);
-                    if (selected[0] == null) {
-                        selected[0] = touchedObject;
-                        description.text = "Please click card! (1 card left)";
-                        description.color = Color.gray;
+    void BlackJack()
+    {
+        Debug.Log("helloあああ");
+        // タッチまたはマウスクリックの判定
+        if (EventSystem.current.IsPointerOverGameObject())
+        {   
+            //画面のターンを変更
+                if (turnText.text == "turn: Player 1")  {
+                    turnText.text = "turn: Player 2";
+                    turnText.color = Color.red;
+                } else {
+                    if (score1 > score2) {
+                        resultText.text = "Winner: Player 1";
+                        resultText.color = Color.blue;
                     } else {
-                        selected[1] = touchedObject;
-                        if (touchedObject.name[5] == selected[0].name[5]){
-                            description.text = "Correct!!";
-                            description.color = Color.green;
-                            GameObject selectedBefore = selected[0];
-                            GameObject particle = Instantiate(_HitParticle, selectedBefore.transform.position, Quaternion.identity);
-                            GameObject particle2 = Instantiate(_HitParticle, touchedObject.transform.position, Quaternion.identity);
-                            Destroy(particle, 1.0f);
-                            Destroy(particle2, 1.0f);
-                            
-                            if (turnText.text == "turn: Player 1") {
-                                score1 ++;
-                                scoreText1.text = "Player1: " + score1.ToString() + "pair";
-                            } else {
-                                score2 ++;
-                                scoreText2.text = "Player2: " + score2.ToString() + "pair";
-                            }
-                            if (score1 + score2 == 3){
-                                if (score1 > score2) {
-                                    resultText.text = "Winner: Player 1";
-                                    resultText.color = Color.blue;
-                                } else {
-                                    resultText.text = "Winner: Player 2";
-                                    resultText.color = Color.red;
-                                }
-                                turnText.text = "Congraturation!!";
-                            } else button.SetActive(true);
+                        resultText.text = "Winner: Player 2";
+                        resultText.color = Color.red;
+                    }
+                    turnText.text = "Congraturation!!";
+                
+            }
+            return; // UIが押された場合はここで処理を終了
+        }
+        
+        // タッチ位置からレイを生成
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
+        // レイキャストでオブジェクトにヒットしたか確認
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject touchedObject = hit.collider.gameObject;
+            // string card = touchedObject.name[5..8];
+            Debug.Log("Touched object: " + touchedObject.name[5..8]);
+
+            // オブジェクトのRendererを取得
+            Renderer objectRenderer = touchedObject.GetComponent<Renderer>();
+
+            if (objectRenderer != null)
+            {   
+                SetTransparency(touchedObject, 0.0f);
+                // AppearCard(touchedObject.name[..8]);
+                if (turnText.text == "turn: Player 1") {
+                    int s = touchedObject.name[8] - '0';
+                    score1 += s == 1 ? 10 : s;
+                    scoreText1.text = "Player1: " + score1.ToString() + "pt";
+                } else {
+                    int s = touchedObject.name[8] - '0';
+                    score2 += s == 1 ? 10 : s;
+                    scoreText2.text = "Player2: " + score2.ToString() + "pt";
+                }
+                // GameObject particle2 = Instantiate(_HitParticle, touchedObject.transform.position, Quaternion.identity);
+                // Destroy(particle2, 1.0f);
+            }
+            else
+            {
+                Debug.LogWarning("Rendererが見つかりません！");
+            }
+        }
+    }
+
+    void MemoryGame()
+    {
+        // タッチまたはマウスクリックの判定
+        if (EventSystem.current.IsPointerOverGameObject())
+        {   
+            //画面のターンを変更
+            
+            if (description.text == "Wrong!!") {
+                SetTransparency(selected[0], 1);
+                SetTransparency(selected[1], 1);
+                // DisappearCard(selected[0].name[..8]);
+                // DisappearCard(selected[1].name[..8]);
+                if (turnText.text == "turn: Player 1")  {
+                    turnText.text = "turn: Player 2";
+                    turnText.color = Color.red;
+                } else {
+                    turnText.text = "turn: Player 1";
+                    turnText.color = Color.blue;
+                }
+            }
+            description.text = "Please click card! (2 cards left)";
+            description.color = Color.white;
+            Array.Clear(selected, 0, selected.Length);
+            button.SetActive(false);
+            return; // UIが押された場合はここで処理を終了
+        }
+        
+        // タッチ位置からレイを生成
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // レイキャストでオブジェクトにヒットしたか確認
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject touchedObject = hit.collider.gameObject;
+            // string card = touchedObject.name[5..8];
+            Debug.Log("Touched object: " + touchedObject.name[5..8]);
+
+            // オブジェクトのRendererを取得
+            Renderer objectRenderer = touchedObject.GetComponent<Renderer>();
+
+            if (objectRenderer != null)
+            {   
+                SetTransparency(touchedObject, 0.0f);
+                // AppearCard(touchedObject.name[..8]);
+                if (selected[0] == null) {
+                    selected[0] = touchedObject;
+                    description.text = "Please click card! (1 card left)";
+                    description.color = Color.gray;
+                } else {
+                    selected[1] = touchedObject;
+                    if (touchedObject.name[5] == selected[0].name[5]){
+                        description.text = "Correct!!";
+                        description.color = Color.green;
+                        GameObject selectedBefore = selected[0];
+                        GameObject particle = Instantiate(_HitParticle, selectedBefore.transform.position, Quaternion.identity);
+                        GameObject particle2 = Instantiate(_HitParticle, touchedObject.transform.position, Quaternion.identity);
+                        Destroy(particle, 1.0f);
+                        Destroy(particle2, 1.0f);
+                        
+                        if (turnText.text == "turn: Player 1") {
+                            score1 ++;
+                            scoreText1.text = "Player1: " + score1.ToString() + "pair";
                         } else {
-                            description.text = "Wrong!!";
-                            description.color = Color.red;
-                            button.SetActive(true);
+                            score2 ++;
+                            scoreText2.text = "Player2: " + score2.ToString() + "pair";
                         }
+                        if (score1 + score2 == 3){
+                            if (score1 > score2) {
+                                resultText.text = "Winner: Player 1";
+                                resultText.color = Color.blue;
+                            } else {
+                                resultText.text = "Winner: Player 2";
+                                resultText.color = Color.red;
+                            }
+                            turnText.text = "Congraturation!!";
+                        } else button.SetActive(true);
+
+                    } else {
+                        description.text = "Wrong!!";
+                        description.color = Color.red;
+                        button.SetActive(true);
                     }
                 }
-                else
-                {
-                    Debug.LogWarning("Rendererが見つかりません！");
-                }
             }
-        }  
-    }
+            else
+            {
+                Debug.LogWarning("Rendererが見つかりません！");
+            }
+        }
+    }  
+
 
     void AppearCard(string objectName){
         GameObject card = GameObject.Find("objectName");

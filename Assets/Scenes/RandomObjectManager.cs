@@ -42,6 +42,24 @@ public class RandomObjectManager : MonoBehaviour
         }
     }
 
+    public void AssignRandomObjectsToTargets_BJ(List<string> targetNames)
+    {
+        int[] arr = {6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+        ShuffleArray(arr); // 配列をシャッフル
+        int indexOfArray = 0;
+        foreach (string targetName in targetNames)
+        {
+            GameObject randomObject = availableObjects[arr[indexOfArray]];
+            GameObject randomBack = availableBacks[arr[indexOfArray]];
+            Debug.Log("らんだむなんばー" + arr[indexOfArray].ToString());
+            // GameObject randomObject = availableObjects[1];
+            targetObjectMap[targetName] = randomObject;
+            targetBackMap[targetName] = randomBack;
+            
+            indexOfArray ++;
+        }
+    }
+
     // ターゲット名に対応するオブジェクトを取得
     public GameObject GetObjectForTarget(string targetName)
     {
