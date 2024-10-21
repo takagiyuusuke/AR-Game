@@ -2713,6 +2713,8 @@ MonoBehaviour:
   resultText: {fileID: 209953699}
   memoryGameButton: {fileID: 344555558}
   blackJackButton: {fileID: 370690768}
+  _FireworkParticle: {fileID: 7750853977139984564, guid: 6a7b26737f4a19a40b5f385c66dc96a9,
+    type: 3}
   _HitParticle: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 3}
 --- !u!4 &692475285

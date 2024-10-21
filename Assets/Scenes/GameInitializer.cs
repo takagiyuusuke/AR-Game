@@ -20,6 +20,8 @@ public class GameInitializer : MonoBehaviour
     public GameObject memoryGameButton;
     public GameObject blackJackButton;
 
+    public GameObject _FireworkParticle;
+
     
     public GameObject _HitParticle; //パーティクルエフェクト
 
@@ -43,37 +45,40 @@ public class GameInitializer : MonoBehaviour
     {   
         if (Input.GetMouseButtonDown(0) )
         {
-        if (gameMode == 0){
-            GameObject selectedUI = EventSystem.current.currentSelectedGameObject;
-            // Debug.Log("UIボタンが押されました" + selectedUI.name);
-            if (selectedUI.name[0] == 'L'){
-                randomObjectManager.AssignRandomObjectsToTargets(targetNames);
-                turnText.text = "turn: Player 1";
-                turnText.color = Color.blue;
-                scoreText1.color = Color.blue;
-                scoreText2.color = Color.red;
-                description.text = "Please click card! (2 cards left)";
-                scoreText1.text = "Player1: 0pair";
-                scoreText2.text = "Player2: 0pair";
-                memoryGameButton.SetActive(false);
-                blackJackButton.SetActive(false);
-                gameMode = 1;
-            } else if (selectedUI.name[0] == 'R') {
-                randomObjectManager.AssignRandomObjectsToTargets_BJ(targetNames);
-                turnText.text = "turn: Player 1";
-                turnText.color = Color.blue;
-                scoreText1.color = Color.blue;
-                scoreText2.color = Color.red;
-                description.text = "Please click card!";
-                scoreText1.text = "Player1: 0pt";
-                scoreText2.text = "Player2: 0pt";
-                memoryGameButton.SetActive(false);
-                blackJackButton.SetActive(false);
-                gameMode = 2;
-                button.SetActive(true);
+            if (gameMode == 0){
+                GameObject selectedUI = EventSystem.current.currentSelectedGameObject;
+                // Debug.Log("UIボタンが押されました" + selectedUI.name);
+                if (selectedUI.name[0] == 'L'){
+                    randomObjectManager.AssignRandomObjectsToTargets(targetNames);
+                    turnText.text = "turn: Player 1";
+                    turnText.color = Color.blue;
+                    scoreText1.color = Color.blue;
+                    scoreText2.color = Color.red;
+                    description.text = "Please click card! (2 cards left)";
+                    scoreText1.text = "Player1: 0pair";
+                    scoreText2.text = "Player2: 0pair";
+                    memoryGameButton.SetActive(false);
+                    blackJackButton.SetActive(false);
+                    gameMode = 1;
+                } else if (selectedUI.name[0] == 'R') {
+                    randomObjectManager.AssignRandomObjectsToTargets_BJ(targetNames);
+                    turnText.text = "turn: Player 1";
+                    turnText.color = Color.blue;
+                    scoreText1.color = Color.blue;
+                    scoreText2.color = Color.red;
+                    description.text = "Please click card!";
+                    scoreText1.text = "Player1: 0pt";
+                    scoreText2.text = "Player2: 0pt";
+                    memoryGameButton.SetActive(false);
+                    blackJackButton.SetActive(false);
+                    gameMode = 2;
+                    button.SetActive(true);
+                }
+            } else if (gameMode == 1) {
+                MemoryGame();
+            } else if (gameMode == 2) {
+                BlackJack();
             }
-        } else if (gameMode == 1) MemoryGame();
-        else if (gameMode == 2) BlackJack();
         }
     }
 
@@ -96,6 +101,14 @@ public class GameInitializer : MonoBehaviour
                         resultText.color = Color.red;
                     }
                     turnText.text = "Congraturation!!";
+                    for (int i = -40; i <= 40; i+=10) {
+                        for (int j = -40; j <= 40; j+=10) {
+                            for (int k = -10; k <= 10; k+=5) {
+                                GameObject particle1 = Instantiate(_FireworkParticle,Camera.main.transform.position + new Vector3(i, j, k), Quaternion.identity);
+                                Destroy(particle1, 5.0f);
+                            }
+                        }
+                    }
                 
             }
             return; // UIが押された場合はここで処理を終了
@@ -127,6 +140,26 @@ public class GameInitializer : MonoBehaviour
                     int s = touchedObject.name[8] - '0';
                     score2 += s == 1 ? 10 : s;
                     scoreText2.text = "Player2: " + score2.ToString() + "pt";
+                }
+                if (score1 > 21 || score2 > 21){
+                    if (score2 > 21) {
+                        resultText.text = "Winner: Player 1";
+                        turnText.color = Color.blue;
+                        resultText.color = Color.blue;
+                    } else {
+                        resultText.text = "Winner: Player 2";
+                        turnText.color = Color.red;
+                        resultText.color = Color.red;
+                    }
+                    turnText.text = "Congraturation!!";
+                    for (int i = -40; i <= 40; i+=10) {
+                        for (int j = -40; j <= 40; j+=10) {
+                            for (int k = -10; k <= 10; k+=5) {
+                                GameObject particle1 = Instantiate(_FireworkParticle,Camera.main.transform.position + new Vector3(i, j, k), Quaternion.identity);
+                                Destroy(particle1, 5.0f);
+                            }
+                        }
+                    }
                 }
                 // GameObject particle2 = Instantiate(_HitParticle, touchedObject.transform.position, Quaternion.identity);
                 // Destroy(particle2, 1.0f);
@@ -214,6 +247,15 @@ public class GameInitializer : MonoBehaviour
                                 resultText.color = Color.red;
                             }
                             turnText.text = "Congraturation!!";
+                            for (int i = -40; i <= 40; i+=10) {
+                                for (int j = -40; j <= 40; j+=10) {
+                                    for (int k = -10; k <= 10; k+=5) {
+                                        GameObject particle1 = Instantiate(_FireworkParticle,Camera.main.transform.position + new Vector3(i, j, k), Quaternion.identity);
+                                        Destroy(particle1, 5.0f);
+                                    }
+                                }
+                            }
+
                         } else button.SetActive(true);
 
                     } else {
